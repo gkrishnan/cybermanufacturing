@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!-- Generic page styles -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/jquery.fileupload.css">
+
+    <title>Predictive Data Analytics for CyberManufacturing (3D Printing Scenario)</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+    <script src="http://malsup.github.com/jquery.form.js"></script> 
+ 
+
+</head> 
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Predictive Data Analytics for CyberManufacturing </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="#">Dataset Upload/Browse (3D images & printing jobs)</a></li>
+            <li><a href="#">Analytics Repositories (Upload/Browse)</a></li>
+            <li><a href="#">Runtime statistics</a></li>
+          </ul>
+<!--           <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+ -->        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="boot.html">Dataset Upload/Browse (3D images & printing jobs)<span class="sr-only">(current)</span></a></li>
+            <li><a href="analytics.html">Analytics Repositories (upload/browse)</a></li>
+            <li><a href="demos.php">Runtime Statistics</a></li>
+            <!-- <li><a href="#">3D Images</a></li> -->
+            <!-- <li><a href="printing.html">3D Printing Service</a></li> -->
+          </ul>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="assets/image1.jpeg" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="assets/image2.jpeg" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="assets/image3.jpeg" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="assets/image5.jpeg" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+            </div>
+          </div>
+<!-- <form id="myForm" action="upload.php" method="post"> 
+    Name: <input type="text" name="name" /> 
+    Comment: <textarea name="comment"></textarea> 
+    <input type="submit" value="Submit Comment" /> 
+</form>
+ -->
+<!--  <form enctype="multipart/form-data" action="upload.php" method="POST">
+    <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+    Send this file: <input name="userfile" type="file" />
+        <p class="help-block">Example block-level help text here.</p>
+
+    <input type="submit" value="Send File" />
+</form> 
+ -->
+<div>
+    <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+    Send this file: <input id="fileu" name="userfile" type="file" />
+        <p class="help-block">Example block-level help text here.</p>
+
+    <input type="submit" value="Send File" onclick="uploadFile()"/>
+</div>
+<br/>
+<br/>
+<br/>
+
+<div>
+    <input type="submit" value="Generate Print Jobs" onclick="newPrintJob()"/>
+</div>
+<br/>
+<br/>
+<div>
+  Image ID:<br>
+  <input  id="imageid"  name="imageid" type="text"/><br>
+  Printer ID:<br>
+  <input id="printerid" name="printerid" type="text"/>
+  <br/>
+  <input type="submit" value="View cost estimate  " onclick="similarimages()"/>
+
+</div>
+
+
+ <!--    <div class="form-group">
+    <label for="exampleInputFile">Upload New Image</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form> -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="assets/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function uploadFile(){
+      //alert($('#fileu'));
+      formData = new FormData();
+      formData.append( 'file', $( '#fileu' )[0].files[0] );
+      // console.log(formData);
+      $.ajax({
+          url: 'upload.php',  //Server script to process data
+          type: 'POST',
+          xhr: function() {  // Custom XMLHttpRequest
+              var myXhr = $.ajaxSettings.xhr();
+              // if(myXhr.upload){ // Check if upload property exists
+              //     myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+              // }
+              return myXhr;
+          },
+          //Ajax events
+          // beforeSend: beforeSendHandler,
+          success: completeUpload,
+          error: function(xhr, status, error) {
+            alert(JSON.stringify(xhr));
+            },
+
+          // Form data
+          data: formData,
+          //Options to tell jQuery not to process data or worry about content-type.
+          cache: false,
+          contentType: false,
+          processData: false
+    });
+
+    }
+    function completeUpload(){
+      alert("Upload complete");
+    }
+
+  function newPrintJob(){
+      //alert($('#fileu'));
+      $.ajax({
+          url: 'generatejobs.php',  //Server script to process data
+          type: 'POST',
+          xhr: function() {  // Custom XMLHttpRequest
+              var myXhr = $.ajaxSettings.xhr();
+              // if(myXhr.upload){ // Check if upload property exists
+              //     myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+              // }
+              return myXhr;
+          },
+          //Ajax events
+          // beforeSend: beforeSendHandler,
+          success: completeJob,
+          error: function(xhr, status, error) {
+            alert(JSON.stringify(xhr));
+            },
+
+          // Form data
+        
+          //Options to tell jQuery not to process data or worry about content-type.
+          cache: false,
+          contentType: false,
+          processData: false
+    });
+
+    }
+    function completeJob(){
+      alert("Print jobs generated!");
+    }
+
+
+    function similarimages(){
+      //alert($('#fileu'));
+      formData = new FormData();
+      formData.append('imageid', $( '#imageid' ).val() );
+      formData.append('printerid', $( '#printerid' ).val() );
+      var result="";
+      // console.log(formData);
+      $.ajax({
+          url: 'similar.php',  //Server script to process data
+          type: 'POST',
+          async:false,
+          xhr: function() {  // Custom XMLHttpRequest
+              var myXhr = $.ajaxSettings.xhr();
+              // if(myXhr.upload){ // Check if upload property exists
+              //     myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+              // }
+              return myXhr;
+          },
+          data: formData,
+          //Ajax events
+          //beforeSend: beforeSendHandler,
+          success: function (result) { alert("Cost estimate:" + result); },
+          error: function(xhr, status, error) {
+            alert(JSON.stringify(xhr));
+            },
+
+          // Form data
+          //Options to tell jQuery not to process data or worry about content-type.
+          cache: false,
+          contentType: false,
+          processData: false
+    });
+    }
+
+    // function completed(data){
+    //   alert("Cost estimate: " + data);
+    // }
+
+    </script>
+  </body>
+</html>
+

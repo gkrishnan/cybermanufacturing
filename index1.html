@@ -1,0 +1,28 @@
+<html>
+<form action="imageUpload.php" method="post" enctype="multipart/form-data" target="upload_target"  onsubmit="jupload();"  id="form1" >
+    <div style="visibility:'hidden';" class="imageholder"> <!-- a gif image to show that the process wasn't finished -->
+    </div>
+    <input type="file" name="imgfile" /> 
+    <input type="submit" name="uploadButton" class="upbtn" value="Submit" />
+</form>
+function jupload()
+{
+    $(".imageholder").append('<img src="./images/loading.gif">');
+}
+
+function juploadstop(result)
+{
+    if(result==0)
+    {
+        $(".imageholder").html("");
+
+    }
+    // the result will be the path to the image
+    else if(result!=0)
+    {
+        $(".imageholder").html("");
+        // imageplace is the class of the div where you want to add the image  
+        $(".imageplace").append("<img src='"+result+"'>");
+    }   
+}
+</html>
